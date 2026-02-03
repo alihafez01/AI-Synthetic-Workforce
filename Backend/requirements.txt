@@ -1,0 +1,9 @@
+Django==5.2.1
+djangorestframework
+django-cors-headers
+drf-spectacular
+python-dotenv
+dj-database-url
+psycopg2-binary
+celery
+redis
