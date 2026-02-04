@@ -23,8 +23,25 @@ from drf_spectacular.renderers import OpenApiJsonRenderer
 
 # Extra endpoint that forces JSON renderer so browser displays schema inline
 
+from rest_framework.routers import DefaultRouter
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from app.views import RegisterView, WorkspaceViewSet
+
+router = DefaultRouter()
+router.register(r'workspaces', WorkspaceViewSet, basename='workspace')
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # Use the JSON schema endpoint so Swagger UI loads interactively in browsers
+    # Schema generation
+    path('api/schema/json/', SpectacularAPIView.as_view(), name='schema-json'),
+    # Swagger UI
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema-json'), name='swagger-ui'),
+    
+    # Auth Endpoints
+    path('api/auth/register/', RegisterView.as_view(), name='auth_register'),
+    path('api/auth/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    
+    # Workspace Endpoints (Router)
+    path('api/', include(router.urls)),
 ]
