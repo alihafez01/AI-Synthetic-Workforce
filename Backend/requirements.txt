@@ -8,3 +8,6 @@ psycopg2-binary
 celery
 redis
 djangorestframework-simplejwt
+pyotp
+qrcode
+pillow

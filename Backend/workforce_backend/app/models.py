@@ -25,6 +25,11 @@ class User(AbstractUser):
         related_name="custom_user_set",
         related_query_name="user",
     )
+    
+    # MFA Fields
+    mfa_secret = models.CharField(max_length=32, blank=True, null=True)
+    mfa_enabled = models.BooleanField(default=False)
+    backup_codes = models.JSONField(default=list, blank=True)
 
     def __str__(self):
         return self.username
