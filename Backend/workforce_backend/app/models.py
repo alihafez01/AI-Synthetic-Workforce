@@ -40,6 +40,15 @@ class Workspace(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owned_workspaces')
     members = models.ManyToManyField(User, related_name='workspaces', blank=True)
     invite_code = models.CharField(max_length=50, unique=True, blank=True, null=True)
+    
+    # Extended Fields matching DB
+    industry = models.CharField(max_length=50, blank=True, null=True)
+    company_size = models.CharField(max_length=20, blank=True, null=True)
+    timezone = models.CharField(max_length=50, blank=True, null=True)
+    currency = models.CharField(max_length=10, blank=True, null=True)
+    active_agents = models.JSONField(default=list, blank=True, null=True)
+    metrics = models.JSONField(default=dict, blank=True, null=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
